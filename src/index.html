@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chibi GTA</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        body { overflow: hidden; background: #000; font-family: 'Arial', sans-serif; cursor: none; }
+        canvas { display: block; }
+
+        #hud { position: fixed; top: 0; left: 0; right: 0; padding: 15px; pointer-events: none; z-index: 10; }
+        #health-bar { width: 200px; height: 8px; background: rgba(0,0,0,.5); border-radius: 4px; margin-bottom: 5px; }
+        #health-fill { width: 100%; height: 100%; background: #e94560; border-radius: 4px; transition: width .3s; }
+        #wanted { color: #fff; font-size: 18px; text-shadow: 0 2px 4px rgba(0,0,0,.8); }
+
+        #weapon { position: fixed; bottom: 15px; right: 15px; color: #fff; font-size: 16px; text-shadow: 0 2px 4px rgba(0,0,0,.8); pointer-events: none; z-index: 10; }
+        #speed { position: fixed; bottom: 40px; right: 15px; color: #0f0; font-size: 14px; text-shadow: 0 2px 4px rgba(0,0,0,.8); pointer-events: none; z-index: 10; display: none; }
+
+        #info { position: fixed; bottom: 15px; left: 15px; color: rgba(255,255,255,.4); font-size: 11px; pointer-events: none; z-index: 10; line-height: 1.6; }
+
+        #crosshair { position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 20px; height: 20px; pointer-events: none; z-index: 10; display: none; }
+        #crosshair::before, #crosshair::after { content: ''; position: absolute; background: rgba(255,255,255,.8); }
+        #crosshair::before { width: 2px; height: 20px; left: 9px; }
+        #crosshair::after { width: 20px; height: 2px; top: 9px; }
+        #crosshair.aiming { width: 10px; height: 10px; }
+        #crosshair.aiming::before { width: 2px; height: 10px; left: 4px; background: rgba(255,50,50,.9); }
+        #crosshair.aiming::after { width: 10px; height: 2px; top: 4px; background: rgba(255,50,50,.9); }
+
+        #loading {
+            position: fixed; inset: 0; background: linear-gradient(135deg, #0a0a1a, #1a0a2e);
+            display: flex; align-items: center; justify-content: center; flex-direction: column; z-index: 100; color: #fff;
+        }
+        #loading h1 {
+            font-size: 72px; font-weight: 900; letter-spacing: 8px; margin-bottom: 10px;
+            background: linear-gradient(90deg, #e94560, #ffd700, #e94560);
+            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            animation: grad 3s linear infinite;
+        }
+        @keyframes grad { 0%{background-position:0%} 100%{background-position:200%} }
+        #loading p { color: #888; font-size: 18px; margin-top: 20px; }
+        #loading .subtitle { color: #e94560; font-size: 14px; margin-top: 8px; letter-spacing: 4px; }
+        #loading .controls {
+            margin-top: 40px; text-align: left; color: #555; font-size: 12px; line-height: 2;
+            background: rgba(255,255,255,.03); padding: 20px 30px; border-radius: 10px;
+        }
+        #loading .controls span { color: #e94560; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <div id="loading">
+        <h1>CHIBI GTA</h1>
+        <p>Klick zum Starten</p>
+        <div class="subtitle">OPEN WORLD 3D</div>
+        <div class="controls">
+            <span>WASD</span> Laufen &nbsp;&nbsp; <span>SHIFT</span> Rennen &nbsp;&nbsp; <span>MAUS</span> Kamera<br>
+            <span>F</span> Auto ein/aussteigen &nbsp;&nbsp; <span>Q/E</span> Waffe wechseln<br>
+            <span>LINKSKLICK</span> Schiessen &nbsp;&nbsp; <span>RECHTSKLICK</span> Zielen<br>
+            <span>F11</span> Vollbild &nbsp;&nbsp; <span>ESC</span> Maus freigeben
+        </div>
+    </div>
+
+    <div id="hud">
+        <div id="health-bar"><div id="health-fill"></div></div>
+        <div id="wanted"></div>
+    </div>
+    <div id="weapon">Faust</div>
+    <div id="speed"></div>
+    <div id="info">
+        WASD - Laufen | SHIFT - Rennen | F - Auto<br>
+        Q/E - Waffe | LMB - Schiessen | RMB - Zielen
+    </div>
+    <div id="crosshair"></div>
+
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>

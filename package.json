@@ -1,0 +1,37 @@
+{
+  "name": "chibi-gta",
+  "version": "1.0.0",
+  "description": "Chibi GTA - 3D Open World Game",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --linux",
+    "build-win": "electron-builder --win"
+  },
+  "author": "chibi.art",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "art.chibi.gta",
+    "productName": "Chibi GTA",
+    "files": ["main.js", "src/**/*"],
+    "win": {
+      "target": [{"target": "nsis", "arch": ["x64"]}]
+    },
+    "linux": {"target": "AppImage"},
+    "artifactName": "ChibiGTA-Setup-${version}.${ext}",
+    "nsis": {
+      "oneClick": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "deanischarf-max",
+      "repo": "chibi-gta"
+    }
+  }
+}
