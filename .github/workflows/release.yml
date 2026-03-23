@@ -1,7 +1,8 @@
 name: Build & Release
 on:
   push:
-    branches: [master]
+    branches: [main]
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
